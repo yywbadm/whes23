@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/jquery.fancybox.min.css">
+	<script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="./js/jquery.fancybox.min.js"></script>
+	<script type="text/javascript" src="../datas.json"></script>
+	<script type="text/javascript" src="../datas/ebook/ebook.json"></script>
+	<style>
+		body{
+			background:url(../images/bg.jpg);
+		}
+		#gal>a{
+			margin:8px;
+			display: inline-block;
+			text-decoration: none;
+			color: darkslategray;
+		}
+		#gal>a>img{
+			border:4px white solid;
+			box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+		}
+		#gal>a>img:hover{
+			box-shadow: 7px 7px 9px rgba(0, 0, 0, 0.3);
+		}
+		#gal>a>span{
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			font-family: "Microsoft JhengHei","微軟正黑體", sans-serif;
+		}
+	</style>
+</head>
+<body oncontextmenu="return false">
+	<div id="gal"></div>
+<script>
+$(function(){
+	window.parent.postMessage({
+		'func': 'iframe'
+	}, '*');
+	window.parent.postMessage({
+		'func': {url:'group'}
+	}, '*');
+	
+	var gallerySt = '';
+	if(datas && datas.main && datas.main.group && datas.main.group.medias){
+		for(var i in datas.main.group.medias){
+			var img = datas.main.group.medias[i].img;
+			var thimg = datas.main.group.medias[i].thumb;
+			var cap = (datas.main.group.medias[i].caption) ? datas.main.group.medias[i].caption : '';
+			var title = (datas.main.group.medias[i].caption) ? datas.main.group.medias[i].caption : '';
+			title = '<span>'+title+'</span>';
+			gallerySt += '<a href=".'+img+'" data-fancybox="gallery" data-caption="'+cap+'"><img src=".'+thimg+'" alt="" />'+title+'</a>';
+		}
+		$('#gal').html(gallerySt);
+	}
+	$('[data-fancybox="gallery"]').fancybox({
+		buttons: [
+			"zoom",
+			"slideShow",
+			"close"
+		],
+	});
+})
+
+</script>
+</body>
+</html>
