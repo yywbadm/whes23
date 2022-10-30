@@ -1,0 +1,4 @@
+[autorun]
+OPEN=Explorer.exe index.html
+SHELLEXECUTE=index.html
+ICON=mymate.ico
