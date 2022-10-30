@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="./datas.json"></script>
+<title>珍重再見。鵬程萬里</title>
+<style>
+body{
+	font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif;
+	background: #58a5e1;
+}
+#block{
+	position: absolute;
+	left:0px;
+	right:0px;
+	top:0px;
+	bottom:0px;
+	background:#009ADE;
+	z-index:130px;
+	text-align: center;
+}
+#block img{
+	margin-top:250px;
+}
+span.btnStart{
+	width: 300px;
+	height: 48px;
+	background: white;
+	display: block;
+	border-radius: 15px;
+	text-align: center;
+	color: #009ADF;
+	line-height: 48px;
+	font-size: 24px;
+	font-family: "Microsoft JhengHei","微軟正黑體", sans-serif;
+	margin: 0 auto;
+	margin-top: 10px;
+	cursor: pointer;
+}
+div.bt{
+	font-family: "Microsoft JhengHei","微軟正黑體", sans-serif;
+    bottom: 10px;
+    font-size: 13px;
+    color: #DDD;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+#timer{
+	margin: 10px;
+}
+#bye{
+	display:none;
+}
+</style>
+</head>
+<body>
+	<div id="block">
+		<img src="./images/start.png" />
+		<span class="btnStart">珍重再見。鵬程萬里</span>
+		<div id="bye" class="bt">即將前往 mymate<span id="timer">3</span></div>
+	</div>
+<script>
+	var t = 10;
+	setTimeout(function(){
+		location.href = 'https://www.mymate.com.tw?bcd='+datas.title;
+	}, t * 1000);
+	setInterval(function(){
+		t = t -1;
+		if(t <= 3){
+			document.getElementById('bye').style.display = 'block';
+		}
+		document.getElementById('timer').innerHTML = t;
+	}, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>601</title>
+<link rel="stylesheet" href="./css/reset.min.css">
+<link href="./css/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src='./js/jquery.min.js'></script>
+<script type="text/javascript" src="./js/fotorama.js"></script>
+<script type="text/javascript" src='./js/main.js'></script>
+<script type="text/javascript" src="datas.json"></script>
+<script type="text/javascript" src="datas/ebook/ebook.json"></script>
+<style>
+body{
+	background:url(./images/bg.jpg);
+	font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif;
+}
+.zoomins{
+	animation:leaves 1.5s ease-in-out 1;
+	
+}
+@keyframes leaves{
+	0%{transform-origin: 50% 50%;transform: scale(1.0);}
+	100%{transform-origin: 50% 50%;transform: scale(2.0);}
+	101%{transform-origin: 50% 50%;transform: none;}
+}
+
+</style>
+</head>
+<body oncontextmenu="return false">
+<!--
+	convert input.mp4[100] thumbnail.png
+-->
+<div class="fotorama" data-nav="thumbs" width="100%" data-width="100%" data-height="99%" data-allowfullscreen="native" data-autoplay="auto" data-stopautoplayontouch="false" data-transition="crossfade" data-transition-duration="1500" data-auto="false" data-loop="true">
+</div>
+<script>
+var params = queryString();
+var fotoramaDiv;
+if(typeof params.c != 'undefined'){
+	classesNow = decodeURI(params.c);
+}
+var oldSlideImg;
+$(function(){
+	var mediaList;
+	if(classesNow == 'campus' || classesNow == 'others'){
+		mediaList = datas.main[classesNow].medias;
+	}else{
+		mediaList = datas.classes[classesNow].medias;
+	}
+	$('.fotorama')
+	.on('fotorama:loadvideo', function(e, fotorama, extra){
+		console.log('load video');
+		window.parent.postMessage({
+			'func': 'pauseMusic'
+		}, '*');
+	})
+	.on('fotorama:unloadvideo', function(e, fotorama, extra){
+		window.parent.postMessage({
+			'func': 'playMusic'
+		}, '*');
+	})
+	.on('fotorama:ready', function(e, fotorama, extra){
+	})
+	.on('fotorama:show', function(e, fotorama, extra){
+		oldSlideImg = $('div.fotorama__stage__frame.fotorama__active>img');
+		oldSlideImg.addClass('zoomins');
+	})
+	.on('fotorama:showend', function(e, fotorama, extra){
+		oldSlideImg.removeClass('zoomins').css('transform','none');
+	})
+	.on('fotorama:load', function(e, fotorama, extra){
+	})
+	.on('fotorama:stopautoplay', function(e, fotorama, extra){
+	})
+	.on('fotorama:stopautoplay', function(e, fotorama, extra){
+	})
+	.on('fotorama:unloadvideo', function(e, fotorama, extra){
+	})
+	.fotorama({
+		data : mediaList,
+		startindex : Math.floor(Math.random() * mediaList.length)
+	});
+	window.parent.postMessage({
+		'func': 'iframe'
+	}, '*');
+	window.parent.postMessage({
+		'func': {url:'class'}
+	}, '*');
+});
+</script>
+</body>
+</html>

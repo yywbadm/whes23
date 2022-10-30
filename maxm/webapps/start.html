@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<!--<script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>-->
+
+
+	<!--<link rel="stylesheet" href="./css/reset.min.css">
+	<link href="./css/fotorama.css" rel="stylesheet">
+	<link href="./css/fonts.css" rel="stylesheet">
+	<script type="text/javascript" src="./js/fotorama.js"></script>
+	<script type="text/javascript" src='./js/main.js'></script>-->
+	<script type="text/javascript" src="datas.json"></script>
+	<script type="text/javascript" src="datas/ebook/ebook.json"></script>
+	<script type="text/javascript" src='./js/jquery.min.js'></script>
+	<style type="text/css">
+		body, html{
+			margin: 0; padding: 0; height: 100%; overflow: hidden;
+		}
+		#content{
+			position:absolute; left: 0; right: 0; bottom: 0; top: 0px;
+		}
+		#controls{
+			display:none;
+			position:absolute;
+			right:5px;
+			bottom: 40px;
+			width:128px;
+		}
+		#music_list, #exit_list{
+			width:64px;
+			float:left;
+		}
+		audio{
+			width:180px;
+			height:64px;
+			display:none;
+		}
+		.rota{
+			-webkit-animation:spin 4s linear infinite;
+			-moz-animation:spin 4s linear infinite;
+			animation:spin 4s linear infinite;
+		}
+		#exiticon{
+			position: absolute;
+			left: 77px;
+			top: 17px;
+			cursor:pointer;
+		}
+		#musicicon{
+			position: absolute;
+			left: 21px;
+			top: 17px;
+			cursor:pointer;
+		}
+		.gray{
+			filter : grayscale(0.9) blur(2px) brightness(1.3);
+		}
+		
+		@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); }}
+		@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); }}
+		@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); }}
+		
+	</style>
+</head>
+
+<body oncontextmenu="return false">
+	<section id="content">
+		<iframe id="frameA" width="100%" height="100%" frameborder="0" src="stage.html" allow="autoplay"></iframe>
+	</section>
+	<div id="controls">
+		<div id="music_list" class="gray">
+			<div class="playicon"><img src="./images/playicon.png" /><img id="musicicon" src="./images/musicicon.png" title="音樂開啟/關閉" />
+			<audio controls></audio></div>
+		</div>
+		<div id="exit_list">
+			<div class="playicon"><img src="./images/playicon1.png" /><img id="exiticon" src="./images/exiticon.png" title="離開/上一頁" />
+		</div>
+	</div>
+</body>
+<script>
+var music_player;
+var music_state = false;
+var music_now = 0;
+var iframeUrl = '';
+var onlyMode = '';
+$(function(){
+	$('audio').hide();
+	var mfiles = datas.music;
+	if(typeof mfiles != 'undefined' && mfiles.length > 0){
+		var music_now = 0;
+		music_player = $('#music_list audio')[0];
+		function next() {
+			if (music_now >= datas.music.length - 1) {
+				music_now = 0;
+			} else {
+				music_now++;
+			}
+			music_player.src = './music/'+mfiles[music_now];
+			if(music_player.paused) music_player.play();
+		}
+		music_player.src = './music/'+mfiles[0];
+		music_player.addEventListener('ended', next, false);
+		$('#music_list').bind('click', function(){
+			music_state = true;
+			if(music_player.paused){
+				playMusic();
+			}else{
+				pauseMusic();
+				music_state = false;
+			}
+		});
+		$('#exit_list').bind('click', function(){
+			if(onlyMode!=''){
+				location.href = './bye.html';
+			}else{
+				if(iframeUrl == 'main'){
+					location.href = './bye.html';
+				}else{
+					$('#frameA').attr('src', './stage.html?c=main');
+				}
+			}
+		});
+		window.setTimeout(function() {
+			if(!music_player.paused){
+				$('#musicicon').addClass('rota');
+				$('#music_list').removeClass('gray');
+			}
+		}, 300);
+		var modes = 0;
+		if(typeof datas.classes != 'undefined'){
+			for(var cc in datas.classes){
+				onlyMode = './class.html?c='+cc;
+				modes ++;
+			}
+		}
+		if(typeof datas.main != 'undefined'){
+			for(var m in datas.main){
+				if(m=='ebook'){
+					onlyMode = './ebook/ebook.html';
+					modes ++;
+				}else if(m=='campus'){
+					onlyMode = './class.html?c=campus';
+					modes ++;
+				}else if(m=='group'){
+					onlyMode = './group/group.html';
+					modes ++;
+				}
+			}
+		}
+		if(modes==1){
+		}else if(modes>1){
+			onlyMode = '';
+		}
+	}
+});
+function pauseMusic(){
+	if(!music_state) return false;
+	music_player.pause();
+	$('#musicicon').removeClass('rota');
+	$('#music_list').addClass('gray');
+}
+function playMusic(){
+	if(!music_state) return false;
+	music_player.play();
+	$('#musicicon').addClass('rota');
+	$('#music_list').removeClass('gray');
+}
+function startMusic(){
+	console.log('sss');
+	$('#controls').show();
+	music_state = true;
+	playMusic();
+}
+
+if (window.addEventListener) {
+    window.addEventListener('message', onMessage, false);        
+} 
+else if (window.attachEvent) {
+    window.attachEvent('onmessage', onMessage, false);
+}
+
+function onMessage(event) {
+    var data = event.data;
+    if (typeof(window[data.func]) == 'function'){
+        window[data.func].call(null, data.message);
+    }else if(typeof(data.func) != 'undefined' && typeof(data.func.url) != 'undefined'){
+		iframeUrl = data.func.url;
+	}
+}
+
+function parentFunc(message) {
+	console.log(message);
+    if(message == 'load video'){
+		pauseMusic();
+	}
+}
+
+document.getElementsByTagName("TITLE")[0].text = datas.year + datas.title;
+</script>
+</html>
