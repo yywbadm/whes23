@@ -1,0 +1,1 @@
+﻿var Key = { Copyright: "美司文化事業股份有限公司", Key: "uZXzCX3tYkLmp79lyrfvnzJExb"};//iq3Zet$TymyrxcmVOgEO"};
