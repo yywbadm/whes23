@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<link rel="shortcut icon" href="../mymate.ico" type="image/x-icon" />
+		<title></title>
+
+		<!-- start custom fonts -->
+		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fauna+One">
+		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate:400,700">
+		<!-- end custom fonts -->
+		
+		<!-- start needed css style files -->
+		<link type="text/css" rel="stylesheet" href="css/pageflip.css">	
+		<link type="text/css" rel="stylesheet" href="css/pageflip-custom.css">	
+		<link type="text/css" rel="stylesheet" href="css/nice-select.css">
+		<!-- end needed css style files -->
+
+		<!-- start needed js libraries -->
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.browser.min.js"></script>
+		<script type="text/javascript" src="js/pageflip5.17-min.js"></script>
+		<script type="text/javascript" src="js/key.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/jquery.nice-select.min.js"></script>
+		<!-- end needed js libraries -->
+		
+		<script type="text/javascript" src="../datas.json"></script>
+		<script type="text/javascript" src="../datas/ebook/ebook.json"></script>
+		<script type="text/javascript" src="../bookmark.json"></script>
+		<style>
+			select.btnselect, div.nice-select{
+				font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif;
+			}
+			div.pf-page-container{
+				background-size: cover;
+			}
+			div.pf-right-side{
+				background-position: right;
+			}
+			div.pf-left-side{
+				background-position: left;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- start embed pageflip -->
+		<div id="pageflip">
+			<!-- start controlbar - embedded for offline safety -->
+			<div class="controlbar">
+				<div id="pageflip-controls">
+					<div class="pf-left-buttons"></div>
+					<div class="pf-right-buttons">
+						<div id="b-fullscreen" class="pf-control-bar-button pf-right" title="Fullscreen On/Off"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="26px" viewBox="0 0 22 26" xml:space="preserve"><g><path d="M5.368,12.116v4.346h5.969v-4.346H5.368z M17,16c0,1.104-0.896,2-2,2H6c-1.104,0-2-0.896-2-2v-6c0-1.104,0.896-2,2-2h9 c1.104,0,2,0.896,2,2V16z"/></g></svg></div>
+						<div id="b-fullscreenoff" class="pf-control-bar-button pf-right"title="Fullscreen On/Off" style="display: none;"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="26px" viewBox="0 0 22 26" xml:space="preserve"><g><path d="M5.368,9.538v3.351h5.882v3.573h4.382V9.538H5.368z M17,16c0,1.104-0.896,2-2,2H6c-1.104,0-2-0.896-2-2v-6 c0-1.104,0.896-2,2-2h9c1.104,0,2,0.896,2,2V16z"/></g></svg></div>
+						<div id="b-thumbs" class="pf-control-bar-button pf-right" title="Thumbnails"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="26px" viewBox="0 0 22 26" xml:space="preserve"><g><rect x="3" y="7" width="3.3" height="3.3"/><rect x="3" y="11" width="3.3" height="3.3"/><rect x="3" y="15" width="3.3" height="3.3"/><rect x="7" y="7" width="3.3" height="3.3"/><rect x="7" y="11" width="3.3" height="3.3"/><rect x="7" y="15" width="3.3" height="3.3"/><rect x="11" y="7" width="3.3" height="3.3"/><rect x="11" y="11" width="3.3" height="3.3"/><rect x="11" y="15" width="3.3" height="3.3"/><rect x="15" y="7" width="3.3" height="3.3"/><rect x="15" y="11" width="3.3" height="3.3"/></g></svg></div>
+						<div id="b-play" class="pf-control-bar-button pf-right" title="Auto Flipping"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="26px" viewBox="0 0 22 26" xml:space="preserve"><g><polygon points="5,8 17,13 5,18"/></g></svg></div>
+						<div id="b-pause" class="pf-control-bar-button pf-right" title="Stop Auto Flipping" style="display: none;"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="26px" viewBox="0 0 22 26" xml:space="preserve"><g><path d="M10,16c0,1.104-0.896,2-2,2H7c-1.104,0-2-0.896-2-2v-6c0-1.104,0.896-2,2-2h1c1.104,0,2,0.896,2,2V16z"/><path d="M17,16c0,1.104-0.896,2-2,2h-1c-1.104,0-2-0.896-2-2v-6c0-1.104,0.896-2,2-2h1c1.104,0,2,0.896,2,2V16z"/></g></svg></div>
+						<div id="b-zoomin" class="pf-control-bar-button pf-right" title="Zoom In"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><path d="M22.09,21.01l-4.643-4.641c0.609-0.98,0.967-2.133,0.967-3.369c0-3.537-2.877-6.414-6.414-6.414 c-3.535,0-6.414,2.877-6.414,6.414c0,3.535,2.879,6.414,6.414,6.414c1.288,0,2.485-0.385,3.491-1.041l4.618,4.617L22.09,21.01z M13,17h-2v-3H8v-2h3V9h2v3h3v2h-3V17z"/></g></svg></div>
+						<div id="b-zoomout" class="pf-control-bar-button pf-right" title="Zoom Out" style="display: none;"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><path d="M22.09,21.01l-4.643-4.641c0.609-0.98,0.967-2.133,0.967-3.369c0-3.537-2.877-6.414-6.414-6.414 c-3.535,0-6.414,2.877-6.414,6.414c0,3.535,2.879,6.414,6.414,6.414c1.288,0,2.485-0.385,3.491-1.041l4.618,4.617L22.09,21.01z M8,14v-2h8v2H8z"/></g></svg></div>
+					</div>
+					<div class="pf-centered-buttons">
+						<div id="b-first" class="pf-control-bar-button pf-disabled"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><polygon points="9,13 17,21 19,19 13,13 19,7 17,5"/><rect x="6.2" y="6" width="2.8" height="14"/></g></svg></div>
+						<div id="b-prev" class="pf-control-bar-button pf-disabled"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><polygon points="7,13 17,23 19,21 11,13 19,5 17,3"/></g></svg></div>
+						<form id="pf-pfpager" class="pf-control-bar-pager">
+							<input type="text" name="pagerin" id="pf-pagerin">
+						</form>
+						<div id="b-next" class="pf-control-bar-button pf-disabled"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><polygon points="20,13 10,23 8,21 16,13 8,5 10,3"/></g></svg></div>
+						<div id="b-last" class="pf-control-bar-button pf-disabled"><svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" xml:space="preserve"><g><polygon points="17,13 9,21 7,19 13,13 7,7 9,5"/><rect x="17" y="6" width="2.8" height="14"/></g></svg></div>
+					</div>
+					<div id="pf-copyright-text">&copy;2018 mymate</div>
+					<div class="pageflip-credits">Powered by mymate</div>
+				</div>
+			</div>
+			<!-- end controlbar - embedded for offline safety -->
+		</div>
+		<!-- end embed pageflip -->
+		<select class="btnselect" style="display:none;">
+			<option id="menuchar" data-display="☰"></option>
+		</select>
+		<!-- start script needed to run pageflip -->
+		<script type="text/javascript">
+			var pageFlipObj;
+			var isDesktop = $.browser.desktop ? true : false;
+			var ebookst = '';
+			var bookW = datas.main.ebook.width;
+			var bookH = datas.main.ebook.height;
+			var serverCreate = false;
+			if(typeof datas!='undefined' && typeof datas.main!='undefined' && typeof datas.main.ebook.servercreate!='undefined'){
+				serverCreate = datas.main.ebook.servercreate;
+			}
+			var singlePage = false;
+			if(!isDesktop){
+				$('#menuchar').attr('data-display','≡');
+				if(serverCreate){
+					document.head.insertAdjacentHTML("beforeend", '<style>@media screen and (orientation: portrait) {#page3,#page7,#page11,#page15,#page19,#page23,#page27,#page31,#page35,#page39,#page43,#page47,#page51,#page55,#page59,#page63,#page67,#page71,#page75,#page79,#page83,#page87,#page91,#page95,#page99,#page103,#page107,#page111{background-position: left}}</style>');
+				}				
+			}
+			$(document).ready(function(){
+				var flipAudio = new Audio('./js/flip.mp3');
+				if(serverCreate && datas.main.ebook.butterfly){
+					bookW += 6;
+				}
+				if(!isDesktop){
+					var r = 480 / bookW;
+					bookW = Math.floor(bookW * r);
+					bookH = Math.floor(bookH * r);
+					singlePage = true;
+				}
+				if(datas.main.ebook && datas.main.ebook.medias && datas.main.ebook.medias.length>5){
+					var lastPagest = '';
+					var subjectSt = '';
+					for(var p in datas.main.ebook.medias){
+						var sub = '';
+						var ep  = '';
+						if(datas.main.ebook.medias[p].img.substr(0,8)!='./datas/'){
+							ep = './datas/ebook/';
+						}
+						if(datas.main.ebook.medias[p].img.substr(-7)=='fly.jpg'){
+							datas.main.ebook.medias[p].img = datas.main.ebook.medias[p].img.replace('../../', '');
+						}
+						if(typeof datas.main.ebook.medias[p].caption != 'undefined'){
+							var captionSt = datas.main.ebook.medias[p].caption;
+							if(typeof cbm!='undefined' && typeof cbm[captionSt]!='undefined'){
+								captionSt = cbm[captionSt];
+							}
+							subjectSt += '<option>'+captionSt+'</option>';
+							sub = ' data-page-name="'+captionSt+'"';
+						}
+						if(p == 0){
+							if(serverCreate && datas.main.ebook.butterfly){
+								ebookst += '<div class="page" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}else if(!serverCreate && !datas.main.ebook.butterfly){
+								lastPagest = '<div class="cover" data-background-file="../images/fly.jpg"></div>';
+							}
+							lastPagest += '<div class="cover" data-page-name="珍重再見" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+						}else if(p == 1){
+							if(sub==''){
+								ebookst += '<div class="cover" data-page-name="'+datas.year+'畢業紀念" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}else{
+								ebookst += '<div class="cover"'+sub+' data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}
+							if(serverCreate && datas.main.ebook.butterfly){
+								ebookst += '<div class="page" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}else if(!serverCreate && !datas.main.ebook.butterfly){
+								ebookst += '<div class="cover" data-background-file="../images/fly.jpg"></div>';
+							}
+						}else if(p == 2){
+							ebookst += '<div class="page" data-page-number="0"'+sub+' data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							if(serverCreate && datas.main.ebook.butterfly){
+								ebookst += '<div class="page" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}
+						}else if(p == 3){
+							ebookst += '<div class="page" data-page-number="1"'+sub+' data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							if(serverCreate && datas.main.ebook.butterfly){
+								ebookst += '<div class="page" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}
+						}else{
+							ebookst += '<div class="page"'+sub+' data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							if(serverCreate && datas.main.ebook.butterfly){
+								ebookst += '<div class="page" data-data="eee" data-background-file=".'+ep+datas.main.ebook.medias[p].img+'"></div>';
+							}
+						}
+					}
+					$('#pageflip').html(ebookst + lastPagest + $('#pageflip').html());
+					if(subjectSt!=''){
+						$('select.btnselect').append(subjectSt).show();
+					}
+				}
+
+				
+				window.parent.postMessage({
+					'func': 'iframe'
+				}, '*');
+				window.parent.postMessage({
+					'func': {url:'ebook'}
+				}, '*');
+				
+				$('select').niceSelect();
+				$('.nice-select').css('position','fixed').css('left','5px').css('top','5px');
+				var $pageflip = $('#pageflip');
+			
+				/* Initialize & Start Pageflip 5 */
+				var EventCallBackObject = {
+					onFlip: function(PN){
+						flipAudio.play();
+					}
+				};
+				$pageflip.pageflipInit( {
+					PageWidth: bookW,
+					PageHeight: bookH,
+					SinglePageMode: singlePage,
+					AutoScale: true,
+					CenterSinglePage: isDesktop,
+					HardCover: isDesktop,
+					HardPages: datas.main.ebook.butterfly,
+					FullScreenEnabled: true,
+					Margin: 34,
+					AutoMaxHeight: false,
+					MarginBottom: 64,
+					RightToLeft: false,
+					ScaleToSinglePage: false,
+					AutoStageHeight: false,
+					StartPage: 0,
+					AutoFlipInterval:5000,
+					AutoFlipLoop: -1,
+					ControlbarToFront: true,
+					HashControl: true,
+					Copyright: Key.Copyright,
+					Key: Key.Key
+				}, "book" );
+				pageFlipObj = $pageflip.pageflip();
+				pageFlipObj.setPFEventCallBack(EventCallBackObject);
+			});
+			
+			
+			$('select.btnselect').change(function(e){
+				pageFlipObj.gotoPageName(this.value, true);
+				return false;
+				
+			});
+		</script>
+		<!-- end script needed to run pageflip -->
+	</body>
+</html>
