@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'NaikaiFont';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NaikaiFont'), local('NaikaiFont'), url(NaikaiFont-SemiBold.ttf) format('opentype');
+}
